@@ -14,7 +14,7 @@ in
       llvmPackages.bintools
       rustup
     ];
-    RUSTC_VERSION = overrides.toolchain.channel;
+    # RUSTC_VERSION = overrides.toolchain.channel;
     # https://github.com/rust-lang/rust-bindgen#environment-variables
     LIBCLANG_PATH = pkgs.lib.makeLibraryPath [ pkgs.llvmPackages_latest.libclang.lib ];
     shellHook = ''
