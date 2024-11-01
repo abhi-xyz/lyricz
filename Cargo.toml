@@ -1,0 +1,7 @@
+[package]
+name = "lyricz"
+version = "0.1.0"
+edition = "2021"
+description = "just shows the lyrics of current mpd song"
+
+[dependencies]
