@@ -39,15 +39,6 @@
       # Formatter (alejandra, nixfmt or nixpkgs-fmt)
       formatter.${system} = pkgs.alejandra;
       # Overlay, consumed by other flakes
-      overlays.${manifest.name} = final: prev: {
-        customPkg = pkgs.callPackage ./nix/default.nix { };
-        # Override the Rust compiler version
-        rustc = final.rust-bin.stable."1.70.0";
-      };
-      # Default overlay
-      overlays.default = final: prev: {
-        defaultPkg = pkgs.callPackage ./nix/default.nix {};
-      };
 
       homeManagerModules.${manifest.name} = pkgs.callPackage ./nix/home-module.nix;
       homeManagerModules.default = self.homeManagerModules.${manifest.name};

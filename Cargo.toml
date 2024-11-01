@@ -5,3 +5,5 @@ edition = "2021"
 description = "just shows the lyrics of current mpd song"
 
 [dependencies]
+crossterm = "0.28.1"
+ratatui = "0.29.0"
