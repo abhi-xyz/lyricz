@@ -2,7 +2,6 @@
   description = "Rust flake templalte";
 
   inputs = {
-    # unstable-nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.05";
   };
 
@@ -11,7 +10,6 @@
       system = "x86_64-linux";
       manifest = (pkgs.lib.importTOML ./Cargo.toml).package;
       pkgs = nixpkgs.legacyPackages.${system};
-      # upkgs = unstable-nixpkgs.legacyPackages.${system};
     in {
 
       # Executed by `nix flake check`
@@ -38,15 +36,9 @@
 
       # Formatter (alejandra, nixfmt or nixpkgs-fmt)
       formatter.${system} = pkgs.alejandra;
-      # Overlay, consumed by other flakes
 
       homeManagerModules.${manifest.name} = pkgs.callPackage ./nix/home-module.nix;
       homeManagerModules.default = self.homeManagerModules.${manifest.name};
-
-      # Nixos module, consumed by other flakes
-      nixosModules.${manifest.name} = { config, ... }: { options = {}; config = {}; };
-      # Default module
-      nixosModules.default = { config, ... }: { options = {}; config = {}; };
 
       devShells.${system}.default = pkgs.callPackage ./nix/shell.nix { };      
     };
