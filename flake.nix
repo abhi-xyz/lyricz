@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.05";
   };
 
-  outputs = { self, nixpkgs } @ inputs:
+  outputs = { self, nixpkgs }:
     let
       system = "x86_64-linux";
       manifest = (pkgs.lib.importTOML ./Cargo.toml).package;
@@ -22,16 +22,6 @@
       ${manifest.name} = pkgs.callPackage ./nix/default.nix;
       # Executed by `nix build .`
       default = pkgs.callPackage ./nix/default.nix;
-      };
-      # Executed by `nix run .#<name>`
-      apps.${system}.${manifest.name} = {
-        type = "app";
-        program = self.packages.${system}.${manifest.name}/bin/${manifest.name};
-      };
-      # # Executed by `nix run . -- <args?>`
-      apps.${system}.default = {
-        type = "app";
-        program = self.packages.${system}.${manifest.name}/bin/${manifest.name};
       };
 
       # Formatter (alejandra, nixfmt or nixpkgs-fmt)
