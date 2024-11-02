@@ -7,7 +7,7 @@
 in
   pkgs.mkShell rec {
 
-    # inputsFrom = [ (pkgs.callPackage ./default.nix { }) ];
+    inputsFrom = [ (pkgs.callPackage ./default.nix { }) ];
 
     buildInputs = with pkgs; [
       clang
