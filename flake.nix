@@ -18,7 +18,7 @@
       formatter.${system} = pkgs.alejandra;
       homeManagerModules.${manifest.name} = import ./nix/home-module.nix;
       homeManagerModules.default = self.homeManagerModules.${manifest.name};
-      nixosModules.${manifest.name} = import ./nix/nixos-module.nix;
+      nixosModules.${manifest.name} = import ./nix/module.nix;
       nixosModules.default = self.nixosModules.${manifest.name};
       devShells.${system}.default = pkgs.callPackage ./nix/shell.nix {};
     };

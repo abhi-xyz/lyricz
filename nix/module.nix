@@ -32,7 +32,7 @@ in
   config = lib.mkIf config.program.${manifest.name}.enable {
     environment.systemPackages = [ config.program.${manifest.name}.package ];
 
-    environment.etc."${manifest.name}/config.toml" = lib.mkIf (config.program.${manifest.name}.settings != { }) {
+    xdg.configFile."${manifest.name}/config.toml" = lib.mkIf (config.program.${manifest.name}.settings != { }) {
       source = tomlFormat.generate "config.toml" config.program.${manifest.name}.settings;
     };
   };
