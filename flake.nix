@@ -6,18 +6,18 @@
   outputs = {
     self,
     nixpkgs,
-  }: let
-    system = "x86_64-linux";
-    manifest = (pkgs.lib.importTOML ./Cargo.toml).package;
-    pkgs = nixpkgs.legacyPackages.${system};
-  in {
-    packages.${system} = {
-      ${manifest.name} = pkgs.callPackage ./nix/default.nix;
-      default = pkgs.callPackage ./nix/default.nix;
+    }: let
+      system = "x86_64-linux";
+      manifest = (pkgs.lib.importTOML ./Cargo.toml).package;
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      packages.${system} = {
+        ${manifest.name} = pkgs.callPackage ./nix/default.nix { };
+        default = self.packages.${system}.${manifest.name};
+      };
+      formatter.${system} = pkgs.alejandra;
+      homeManagerModules.${manifest.name} = pkgs.callPackage ./nix/home-module.nix { };
+      homeManagerModules.default = self.homeManagerModules.${manifest.name};
+      devShells.${system}.default = pkgs.callPackage ./nix/shell.nix {};
     };
-    formatter.${system} = pkgs.alejandra;
-    homeManagerModules.${manifest.name} = pkgs.callPackage ./nix/home-module.nix;
-    homeManagerModules.default = self.homeManagerModules.${manifest.name};
-    devShells.${system}.default = pkgs.callPackage ./nix/shell.nix {};
-  };
 }
