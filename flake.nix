@@ -12,7 +12,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       packages.${system} = {
-        ${manifest.name} = pkgs.callPackage ./nix/default.nix { };
+        ${manifest.name} = pkgs.callPackage ./nix/default.nix { check = false; };
         default = self.packages.${system}.${manifest.name};
       };
       formatter.${system} = pkgs.alejandra;

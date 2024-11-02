@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { }, doCheck ? false }:
+{ pkgs ? import <nixpkgs> { }, check ? false }:
 let 
   rustPlatform = pkgs.rustPlatform;
   manifest = (pkgs.lib.importTOML ../Cargo.toml).package;
@@ -8,7 +8,7 @@ in
     version = manifest.version;
     cargoLock.lockFile = ../Cargo.lock;
     src = pkgs.lib.cleanSource ../.;
-    doCheck = doCheck;
+    doCheck = check;
 
     meta = with pkgs.lib; {
       description = manifest.description;
