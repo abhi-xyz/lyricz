@@ -26,7 +26,7 @@
 
             package = lib.mkOption {
               type = lib.types.package;
-              default = pkgs.callPackage ./default.nix { };
+              default = pkgs.callPackage ./nix/default.nix { };
               description = "The ${manifest.name} package to use.";
             };
             settings = lib.mkOption {
@@ -42,7 +42,7 @@
                 ]
               '';
               description = ''
-                Configuration written to {file}`$XDG_CONFIG_HOME/${manifest.name}/config.json`.
+                Configuration written to {file}`$XDG_CONFIG_HOME/${manifest.name}/config.toml`.
               '';
             };
           };
