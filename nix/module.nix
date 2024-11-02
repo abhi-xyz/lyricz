@@ -16,12 +16,12 @@ in
       type = tomlFormat.type;
       default = { };
       example = lib.literalExpression ''
-                [directories]
-                images_path = "/home/abhi/pics/pictures/images"
+                [test-01]
+                one = "test one"
 
-                [input]
-                dirs = [
-                  "/home/abhi/videos",
+                [test-02]
+                magic = [
+                  "two",
                 ]
       '';
       description = ''
@@ -31,7 +31,7 @@ in
   };
   config = lib.mkIf config.program.${manifest.name}.enable {
     environment.systemPackages = [ config.program.${manifest.name}.package ];
-
+    # cat /run/current-system/etc/${manifest.name}/config.toml
     environment.etc."${manifest.name}/config.toml" = lib.mkIf (config.program.${manifest.name}.settings != { }) {
       source = tomlFormat.generate "config.toml" config.program.${manifest.name}.settings;
     };
