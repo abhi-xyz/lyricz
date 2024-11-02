@@ -4,34 +4,31 @@ let
   manifest = (pkgs.lib.importTOML ../Cargo.toml).package;
 in
   {
-  options.program.otter = {
-    enable = lib.mkEnableOption "Enable the <name> program";
+  options.program.${manifest.name} = {
+    enable = lib.mkEnableOption "Enable the ${manifest.name} program";
 
     package = lib.mkOption {
       type = lib.types.package;
       default = pkgs.callPackage ./default.nix { };
-      description = "The <name> package to use.";
+      description = "The ${manifest.name} package to use.";
     };
-
     settings = lib.mkOption {
       type = tomlFormat.type;
       default = { };
       example = lib.literalExpression ''
                 [directories]
-                image_path "/home/abhi/pics/pictures/images"
+                images_path = "/home/abhi/pics/pictures/images"
 
                 [input]
                 dirs = [
-                  "/home/abhi/downloads"
+                  "/home/abhi/videos",
                 ]
       '';
       description = ''
-                Configuration written to {file}`$XDG_CONFIG_HOME/${manifest.name}/config.json`.
+                Configuration written to {file}`$XDG_CONFIG_HOME/${manifest.name}/config.toml`.
       '';
     };
-
   };
-
   config = lib.mkIf config.program.${manifest.name}.enable {
     home.packages = [ config.program.${manifest.name}.package ];
 

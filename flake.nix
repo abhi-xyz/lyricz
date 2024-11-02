@@ -16,7 +16,9 @@
         default = self.packages.${system}.${manifest.name};
       };
       formatter.${system} = pkgs.alejandra;
-      homeManagerModules.${manifest.name} = { config, pkgs, lib, ... }:
+      homeManagerModules.${manifest.name} = import ./nix/home-module.nix;
+        /*
+        { config, pkgs, lib, ... }:
         let
           tomlFormat = pkgs.formats.toml { };
         in
@@ -54,6 +56,7 @@
             };
           };
         };
+      */
       homeManagerModules.default = self.homeManagerModules.${manifest.name};
       devShells.${system}.default = pkgs.callPackage ./nix/shell.nix {};
     };
