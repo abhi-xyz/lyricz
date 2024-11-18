@@ -2,5 +2,13 @@
 name = "lyricz"
 version = "0.1.0"
 edition = "2021"
+description = "ml" 
 
 [dependencies]
+anyhow = "1.0.93"
+color-eyre = "0.6.3"
+crossterm = "0.28.1"
+dirs = "5.0.1"
+mpd = "0.1.0"
+ratatui = "0.29.0"
+walkdir = "2.5.0"
